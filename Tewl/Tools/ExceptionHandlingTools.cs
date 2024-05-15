@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System.Runtime.ExceptionServices;
+using System.Threading;
 using JetBrains.Annotations;
 
 namespace Tewl.Tools;
@@ -26,5 +27,20 @@ public static class ExceptionHandlingTools {
 				else
 					throw new ApplicationException( failureMessage, e );
 			}
+	}
+
+	/// <summary>
+	/// Sequentially calls each of the specified methods, continuing even if exceptions are thrown. When finished, throws the first exception if there was one.
+	/// </summary>
+	public static void CallEveryMethod( params Action[] methods ) {
+		ExceptionDispatchInfo? exception = null;
+		foreach( var method in methods )
+			try {
+				method();
+			}
+			catch( Exception e ) {
+				exception ??= ExceptionDispatchInfo.Capture( e );
+			}
+		exception?.Throw();
 	}
 }
