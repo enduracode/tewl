@@ -7,9 +7,20 @@ namespace Tewl.Tools;
 /// </summary>
 [ PublicAPI ]
 public static class DateTimeTools {
-	internal static readonly string[] DayMonthYearFormats = { dayMonthYearFormatLz, dayMonthYearFormat };
-	internal static readonly string[] MonthDayYearFormats = { monthDayYearFormat, "M/d/yyyy", "MM/dd/yy" };
-	internal const string HourAndMinuteFormat = "h:mmt";
+	/// <summary>
+	/// Format strings for the “day month year” date style, e.g. 5 Apr 2008.
+	/// </summary>
+	public static readonly string[] DayMonthYearFormats = [ dayMonthYearFormatLz, dayMonthYearFormat ];
+
+	/// <summary>
+	/// Format strings for the month/day/year date style.
+	/// </summary>
+	public static readonly string[] MonthDayYearFormats = [ monthDayYearFormat, "M/d/yyyy", "MM/dd/yy" ];
+
+	/// <summary>
+	/// The format string for the hour:minute time style with a 12-hour clock, e.g. 2:30p.
+	/// </summary>
+	public const string HourAndMinuteFormat = "h:mmt";
 
 	private const string dayMonthYearFormatLz = "dd MMM yyyy";
 	private const string dayMonthYearFormat = "d MMM yyyy";
