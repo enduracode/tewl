@@ -40,6 +40,11 @@ public static class CollectionTools {
 	public static IEnumerable<T> GetDuplicates<T>( this IEnumerable<T> items ) => items.GroupBy( i => i ).Where( i => i.Count() > 1 ).Select( i => i.Key );
 
 	/// <summary>
+	/// Convenience method to allow concatenating individual elements.
+	/// </summary>
+	public static IEnumerable<T> ConcatItems<T>( this IEnumerable<T> items, params T[] ts ) => Enumerable.Concat( items, ts );
+
+	/// <summary>
 	/// Convenience method to allow concatenating individual elements to an existing array.
 	/// </summary>
 	public static T[] ConcatArray<T>( this IEnumerable<T> items, params T[] ts ) => Enumerable.Concat( items, ts ).ToArray();
