@@ -1,4 +1,3 @@
-using System.Collections.Immutable;
 using JetBrains.Annotations;
 
 namespace Tewl.Tools;
@@ -42,22 +41,27 @@ public static class CollectionTools {
 	/// <summary>
 	/// Convenience method to allow concatenating individual elements.
 	/// </summary>
-	public static IEnumerable<T> ConcatItems<T>( this IEnumerable<T> items, params T[] ts ) => Enumerable.Concat( items, ts );
+	public static IEnumerable<T> ConcatItems<T>( this IEnumerable<T> items, params T[] ts ) => items.Concat( ts );
 
 	/// <summary>
 	/// Convenience method to allow concatenating individual elements to an existing array.
 	/// </summary>
-	public static T[] ConcatArray<T>( this IEnumerable<T> items, params T[] ts ) => Enumerable.Concat( items, ts ).ToArray();
+	public static T[] ConcatArray<T>( this IEnumerable<T> items, params T[] ts ) => items.Concat( ts ).ToArray();
 
 	/// <summary>
 	/// Creates a collection from this sequence.
 	/// </summary>
-	public static IReadOnlyCollection<T> Materialize<T>( this IEnumerable<T> items ) => items.ToImmutableArray();
+	public static IReadOnlyCollection<T> Materialize<T>( this IEnumerable<T> items ) => items.ToArray();
+
+	/// <summary>
+	/// Creates a list from this sequence, enabling elements to be accessed by index.
+	/// </summary>
+	public static IReadOnlyList<T> MaterializeAsList<T>( this IEnumerable<T> items ) => items.ToList();
 
 	/// <summary>
 	/// Creates a collection containing only this item.
 	/// </summary>
-	public static IReadOnlyCollection<T> ToCollection<T>( this T item ) => ImmutableArray.Create( item );
+	public static IReadOnlyCollection<T> ToCollection<T>( this T item ) => [ item ];
 
 	/// <summary>
 	/// Returns an enumerable of functions that return the given items.
