@@ -1,4 +1,4 @@
-using System.Globalization;
+Ôªøusing System.Globalization;
 using System.Text;
 using System.Text.RegularExpressions;
 using AvsAnLib;
@@ -671,7 +671,7 @@ public static class StringTools {
 
 	// ReSharper disable GrammarMistakeInComment
 	/// <summary>
-	/// Prepends either ìa î or ìan î to this English word, based on Wikipedia usage data. Implemented with https://eamonnerbonne.github.io/a-vs-an/.
+	/// Prepends either ‚Äúa ‚Äù or ‚Äúan ‚Äù to this English word, based on Wikipedia usage data. Implemented with https://eamonnerbonne.github.io/a-vs-an/.
 	/// </summary>
 	/// <param name="word">Do not pass null.</param>
 	/// <param name="capitalizeWord">Pass true to capitalize the word after determining the correct article. Do not capitalize it before calling this method, as
