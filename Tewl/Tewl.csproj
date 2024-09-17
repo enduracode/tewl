@@ -1,4 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFrameworks>netstandard2.0;net461</TargetFrameworks>
+	</PropertyGroup>
 
   <PropertyGroup>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
@@ -6,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AvsAn" Version="3.2.0" />
     <PackageReference Include="ClosedXML" Version="0.102.1" />
     <PackageReference Include="Humanizer.Core" Version="2.8.2" />
     <PackageReference Include="JetBrains.Annotations" Version="2020.1.0" />

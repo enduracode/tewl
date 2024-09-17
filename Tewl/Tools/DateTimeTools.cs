@@ -1,4 +1,4 @@
-﻿using JetBrains.Annotations;
+﻿using Humanizer;
 
 namespace Tewl.Tools;
 
@@ -200,9 +200,10 @@ public static class DateTimeTools {
 	/// Be sure time information is not included. No begin date may be after an end date.
 	/// </summary>
 	public static bool DateRangesCoverAllDates( DateTime beginDate, DateTime endDate, IEnumerable<Tuple<DateTime?, DateTime?>> dateRanges ) {
-		for( var day = beginDate; day <= endDate; day = day.AddDays( 1 ) )
+		for( var day = beginDate; day <= endDate; day = day.AddDays( 1 ) ) {
 			if( !dateRanges.Any( dr => day.IsBetweenDates( dr.Item1, dr.Item2 ) ) )
 				return false;
+		}
 
 		return true;
 	}
