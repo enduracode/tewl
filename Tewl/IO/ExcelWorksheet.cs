@@ -1,7 +1,5 @@
 ﻿using ClosedXML.Excel;
-using Humanizer;
 using Tewl.InputValidation;
-using Tewl.Tools;
 
 namespace Tewl.IO;
 
