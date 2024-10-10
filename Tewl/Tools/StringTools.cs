@@ -58,18 +58,34 @@ public static class StringTools {
 	/// <summary>
 	/// Returns the given string with its first letter-or-digit character capitalized.
 	/// </summary>
-	public static string CapitalizeString( this string text ) {
+	[ Obsolete( "Please use Capitalize instead, and do not pass null." ) ]
+	public static string? CapitalizeString( this string? text ) {
 		if( text == null )
 			return null;
+		return text.Capitalize();
+	}
 
-		return new string( text.ToCharArray().Select( ( c, index ) => index == getIndexOfFirstLetterOrDigit( text ) ? char.ToUpper( c ) : c ).ToArray() );
+	/// <summary>
+	/// Returns the given string with its first letter-or-digit character capitalized.
+	/// </summary>
+	public static string Capitalize( this string text ) {
+		var index = getIndexOfFirstLetterOrDigit( text );
+		return index < 0 ? text : text[ ..index ] + char.ToUpper( text[ index ] ) + text[ ( index + 1 ).. ];
 	}
 
 	/// <summary>
 	/// Returns the given string with its first letter-or-digit character lowercased. Do not pass null.
 	/// </summary>
-	public static string LowercaseString( this string text ) =>
-		new( text.ToCharArray().Select( ( c, index ) => index == getIndexOfFirstLetterOrDigit( text ) ? char.ToLower( c ) : c ).ToArray() );
+	[ Obsolete( "Please use Uncapitalize instead." ) ]
+	public static string LowercaseString( this string text ) => text.Uncapitalize();
+
+	/// <summary>
+	/// Returns the given string with its first letter-or-digit character lowercased.
+	/// </summary>
+	public static string Uncapitalize( this string text ) {
+		var index = getIndexOfFirstLetterOrDigit( text );
+		return index < 0 ? text : text[ ..index ] + char.ToLower( text[ index ] ) + text[ ( index + 1 ).. ];
+	}
 
 	private static int getIndexOfFirstLetterOrDigit( string text ) {
 		for( var i = 0; i < text.Length; i += 1 )
