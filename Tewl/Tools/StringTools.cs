@@ -2,7 +2,6 @@
 using System.Text;
 using System.Text.RegularExpressions;
 using AvsAnLib;
-using JetBrains.Annotations;
 
 namespace Tewl.Tools;
 
@@ -72,7 +71,12 @@ public static class StringTools {
 	public static string LowercaseString( this string text ) =>
 		new( text.ToCharArray().Select( ( c, index ) => index == getIndexOfFirstLetterOrDigit( text ) ? char.ToLower( c ) : c ).ToArray() );
 
-	private static int getIndexOfFirstLetterOrDigit( string text ) => text.IndexOfAny( text.ToCharArray().Where( char.IsLetterOrDigit ).ToArray() );
+	private static int getIndexOfFirstLetterOrDigit( string text ) {
+		for( var i = 0; i < text.Length; i += 1 )
+			if( char.IsLetterOrDigit( text[ i ] ) )
+				return i;
+		return -1;
+	}
 
 	/// <summary>
 	/// Removes all of the non-alphanumeric characters from this string.
