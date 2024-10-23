@@ -179,25 +179,32 @@ public static class IoMethods {
 	}
 
 	/// <summary>
-	/// Automatically creates and cleans up a temporary folder for the given method to use. Passes the folder path to the given
-	/// action.
-	/// There is a race condition here: another process could create a directory after we check if our folder path exists, but
-	/// before we create the folder. See
-	/// http://stackoverflow.com/a/217198/35349. We believe this is unlikely and is an acceptable risk.
+	/// Automatically creates and cleans up a temporary folder for the given method to use. Passes the folder path to the given action.
 	/// </summary>
 	public static void ExecuteWithTempFolder( Action<string> method ) {
-		string folderPath;
-		do
-			folderPath = Path.Combine( Path.GetTempPath(), Path.GetRandomFileName() );
-		while( File.Exists( folderPath ) || Directory.Exists( folderPath ) );
-		Directory.CreateDirectory( folderPath );
-
+		var folderPath = CreateTempFolder();
 		try {
 			method( folderPath );
 		}
 		finally {
 			DeleteFolder( folderPath );
 		}
+	}
+
+	/// <summary>
+	/// Creates a temporary folder and returns its path. Use with caution, as it is your responsibility to delete the folder when you are finished using it. You
+	/// likely should use <see cref="ExecuteWithTempFolder"/> instead.
+	/// </summary>
+	public static string CreateTempFolder() {
+		// There is a race condition here: another process could create a directory after we check if our folder path exists, but before we create the folder. See
+		// http://stackoverflow.com/a/217198/35349. We believe this is unlikely and an acceptable risk.
+		string path;
+		do
+			path = Path.Combine( Path.GetTempPath(), Path.GetRandomFileName() );
+		while( File.Exists( path ) || Directory.Exists( path ) );
+		Directory.CreateDirectory( path );
+
+		return path;
 	}
 
 	/// <summary>
