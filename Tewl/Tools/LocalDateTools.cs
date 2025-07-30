@@ -27,6 +27,11 @@ public static class LocalDateTools {
 	public static LocalDate MonthBeginDate( this LocalDate date ) => date.ToYearMonth().OnDayOfMonth( 1 );
 
 	/// <summary>
+	/// Returns the first date in this date’s week.
+	/// </summary>
+	public static LocalDate WeekBeginDate( this LocalDate date, IsoDayOfWeek firstDayOfWeek ) => date.PlusDays( 1 ).Previous( firstDayOfWeek );
+
+	/// <summary>
 	/// Formats this date in "day month year" style, e.g. 5 Apr 2008. Returns stringIfNull if the date is null.
 	/// </summary>
 	public static string ToDayMonthYearString( this LocalDate? date, string stringIfNull, bool useLeadingZero, bool includeDayOfWeek = false ) =>
@@ -47,4 +52,9 @@ public static class LocalDateTools {
 	/// Formats this date in "01/01/2001" style.
 	/// </summary>
 	public static string ToMonthDayYearString( this LocalDate date ) => date.ToDateTimeUnspecified().ToMonthDayYearString();
+
+	/// <summary>
+	/// Formats this date in "month year" style, e.g. April 2008.
+	/// </summary>
+	public static string ToMonthYearString( this LocalDate date ) => new DateTimeOffset( date.ToDateTimeUnspecified() ).ToMonthYearString();
 }
