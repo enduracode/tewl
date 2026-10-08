@@ -5,14 +5,21 @@ namespace Tewl.IO.TabularDataParsing;
 
 internal class ExcelParser: TabularDataParser {
 	private readonly XLWorkbook workbook;
+	private readonly string worksheet;
 
-	public ExcelParser( string filePath ) => workbook = new XLWorkbook( filePath );
+	public ExcelParser( string filePath, string worksheet ) {
+		workbook = new XLWorkbook( filePath );
+		this.worksheet = worksheet;
+	}
 
-	public ExcelParser( Stream fileStream ) => workbook = new XLWorkbook( fileStream );
+	public ExcelParser( Stream fileStream, string worksheet ) {
+		workbook = new XLWorkbook( fileStream );
+		this.worksheet = worksheet;
+	}
 
 	public override void ParseAndProcessAllLines(
 		LineProcessingMethod lineHandler, ICollection<DataValidationError> validationErrors, bool disableLineProcessingErrorAccumulation = false ) {
-		var ws1 = workbook.Worksheets.First();
+		var ws1 = worksheet.Length > 0 ? workbook.Worksheet( worksheet ) : workbook.Worksheets.First();
 		var rows = ws1.RangeUsed().RowsUsed().Where( r => !r.IsEmpty() ).Materialize();
 		var header = rows.First();
 
