@@ -3,7 +3,7 @@
 <PropertyGroup>
 <AssemblyName>Tests</AssemblyName>
 <RootNamespace>Tests</RootNamespace>
-<Version>33.0.47.0</Version>
+</PropertyGroup><Import Project="$(MSBuildThisFileDirectory)Version.props" Condition="Exists('$(MSBuildThisFileDirectory)Version.props')" /><PropertyGroup>
 <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
 <Product>TEWL</Product>
 <AssemblyTitle>TEWL - Tests</AssemblyTitle>
